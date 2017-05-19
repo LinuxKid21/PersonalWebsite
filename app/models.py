@@ -16,6 +16,7 @@ class BlogPage(models.Model):
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=500)
     contentFile = models.CharField(max_length=50, primary_key=True)
+    imageFile = models.CharField(max_length=50, default='Teleporter.png')
     def __str__(self):
         return self.title
     
