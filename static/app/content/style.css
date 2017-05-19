@@ -1,0 +1,179 @@
+/* general layout */
+.page {
+    display:table;
+    width: 100%;
+    height: 100%;
+}
+
+.sideAndPageHolder {
+    display:table;
+    width: 100%;
+    height: 100%;
+}
+
+/* header */
+.websiteTitle {
+    display:table-cell;
+    font-size: 2.2em;
+    padding: 8px;
+    color: #FFF;
+    text-align: center;
+    padding-left: 200px;
+	font-family: "Impact", Times, serif;
+}
+.websiteHeader {
+    background-color: #000;
+    height: 1px;
+    display:table-row;
+}
+
+
+/* navigation */
+.navigationbar {
+    display:table-cell;
+    vertical-align: top;
+    list-style-type: none;
+    width: 200px;
+    background-color: #999;
+}
+.navigationbar li a {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #555;
+    color: #FFF;
+    border-bottom: 2px;
+    border-style: solid;
+    border-color: #000;
+}
+.navigationbar li a:Hover {
+    background-color: #111;
+}
+.active-link {
+    background-color: #A00;
+}
+
+
+
+/* content */
+.page-title {
+    font-size: 3em;
+	color: #000;
+    padding-bottom: 4px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-width: 3px;
+    border-color: #555;
+    border-bottom-style: solid;
+    text-align: center;
+}
+
+.content {
+    display:table-cell;
+    vertical-align: top;
+    /*width: 600px;*/
+}
+
+.centered-content {
+    text-align: justify;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+
+
+/* footer */
+.footer {
+    display:table-row;
+    height:20px;
+    background-color: #000;
+    width: 100%;
+}
+
+.bloglistlink {
+	font-weight: bold;
+	font-size: 2.2em;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    border-width: 2px;
+    border-color: #000;
+    border-bottom-style: solid;
+	padding-bottom: 4px;
+    overflow-x: auto; /* this makes sure that the heading line does not go through images it wraps around */
+}
+
+.bloglistlink a {
+	color: #A00;
+    text-decoration: none;
+}
+
+/* page content styles */
+h1 {
+	color: #A00;
+	font-weight: bold;
+	font-size: 2.2em;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    border-width: 2px;
+    border-color: #000;
+    border-bottom-style: solid;
+	padding-bottom: 4px;
+    overflow-x: auto; /* this makes sure that the heading line does not go through images it wraps around */
+}
+h2 {
+	color: #964524;
+	font-weight: bold;
+	font-size: 1.5em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-width: 1px;
+    border-color: #000;
+    border-bottom-style: solid;
+	padding-bottom: 4px;
+    overflow-x: auto; /* this makes sure that the heading line does not go through images it wraps around */
+}
+h3 {
+	color: #767514;
+	font-weight: bold;
+	font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border-width: 1px;
+    border-color: #000;
+    border-bottom-style: solid;
+	padding-bottom: 4px;
+    overflow-x: auto; /* this makes sure that the heading line does not go through images it wraps around */
+}
+
+
+.img-left {
+	float: left;
+	margin-right: 1em;
+}
+.img-right {
+	float: right;
+	margin-left: 1em;
+}
+.date {
+    text-align: right;
+}
+
+
+
+@media (max-width: 480px) {
+    .websiteTitle {
+        padding-left: 0;
+    }
+    .sideAndPageHolder {
+        display:block;
+    }
+    .navigationbar {
+        display:block;
+        width: 100%;
+    }
+    .centered-content {
+        text-align: justify;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}

@@ -1,0 +1,10 @@
+{% extends "app/main.html" %}
+{% block content %}
+    <p class = "page-title"> Blog </p>
+    {% for page in blogPages %}
+    
+        <div class="bloglistlink"><a href="{% url 'blog' page.contentFile %}">{{page.title}}</a></div>
+        <p>{{page.summary}}
+    </p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Levi Stoddard</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'app/content/reset.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'app/content/style.css' %}">
+    </head>
+    <body>
+        <div class = "page">
+            <div class = "websiteHeader">
+                <p class = "websiteTitle">Levi Stoddard</p>
+            </div>
+            <div class = "sideAndPageHolder">
+                <ul class = "navigationbar">
+                    <li><a href="{% url 'main' 'home.html' %}">Home</a></li>
+                    <li><a href="{% url 'main' 'blog_index.html' %}">Blog</a></li>
+                    <li><a href="{% url 'main' 'project_index.html' %}">Projects</a></li>
+                    <li><a href="{% url 'main' 'about.html' %}">About</a></li>
+                </ul>
+                <div class = "content">
+                    <div class = "centered-content">
+                        {% block content %}
+                            <p> page not found! </p>
+                            <a href = "home.html"> return to home </a>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+            <div class="footer"> <p style="color: #FFF;">&copy;2017</p>
+            </div>
+        </div>
+    </body>
+</html>
