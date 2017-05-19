@@ -3,75 +3,42 @@
 {% load pygment_code %}
 
 {% block blogContent %}
+    <h1> Mnemonics </h1>
+
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis orci ipsum. Aliquam efficitur eros id maximus gravida. Donec nec velit at augue vehicula tristique. Suspendisse potenti. Sed malesuada ligula sed sem lacinia mollis. Vivamus mollis vulputate est eget lobortis. Sed sem dui, ullamcorper ut magna sit amet, imperdiet mollis libero. Aliquam erat volutpat. Duis gravida urna in eros mattis, at luctus tellus molestie. Aenean accumsan turpis sed nunc tristique sodales.
+        If you know what mnemonics are then skip this section. My writing is no piece of art, so maybe skip it anyway :)
+    </p>
+    <p>
+        I’ve read several mnemonics books. Many of them feature a memory trick called “visual mnemonics” which leverages the brains ability to remember images to
+        remembering other information. As an example, if you have a list of words: tree, monkey, pizza, building, and fire then you can first picture a tree.
+        Then perhaps the tree transforms into a monkey. The monkey grabs a huge slice of pizza and takes it to the top of a building which spontaneously combusts into fire.
+        It sounds ridiculously silly I know, but it really does work if practised enough. This same method can be extended and is used in memory competitions, but
+        it can also be a fun party trick or even extended to memorizing foreign language vocabulary.
     </p>
     
-
-    
-
-    <img class = "img-left" src = "{% static 'app/images/CircleBoss.png' %}"/>
+    <h1> The Application </h1>
     <p>
-        Donec volutpat urna quis tortor consequat pulvinar. Suspendisse vel ipsum eget nisi commodo convallis. Vestibulum sollicitudin sed justo et porta. Mauris convallis, dui in hendrerit interdum, libero justo volutpat nunc, at rutrum odio ipsum ut elit. Proin id augue ipsum. Duis odio massa, laoreet nec tempor in, ultricies bibendum ligula. Aliquam tortor massa, vulputate in ex vitae, pulvinar laoreet orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
-    </p>
-
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
-    <img class = "img-left" src = "{% static 'app/images/Teleporter.png' %}"/>
-    <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
+        Mnemonics Trainer generates a list of words for you and recites them to you. You can then memorize them with mnemonics and try to pass the quiz.
+        Afterwards it gives you a score and you can try again. Screen shots:
     </p>
     
+    <div class = "slideshow">
+        <img src = "{% static 'app/images/OldMnuemonicsApp/1.png' %}" />
+        <img src = "{% static 'app/images/OldMnuemonicsApp/2.png' %}" />
+        <img src = "{% static 'app/images/OldMnuemonicsApp/3.png' %}" />
+        <img src = "{% static 'app/images/OldMnuemonicsApp/4.png' %}" />
+        <img src = "{% static 'app/images/OldMnuemonicsApp/5.png' %}" />
+        <img src = "{% static 'app/images/OldMnuemonicsApp/6.png' %}" />
+        
+        <button class="leftButton">&#10094;</button>
+        <button class="rightButton">&#10095;</button>
+    </div>
     
-{% pygment_code "C++" %}
-#include "AConfig.hpp"
-#include <fstream>
-
-namespace {
-	std::string trim(const std::string &str) {
-		int start;
-{% endpygment_code %}
-
-{% pygment_code "html" %}
-<p>
-    This is HTML code
-</p>
-{% endpygment_code %}
-    
+    <h1> Technology </h1>
     
     <p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
-    </p>
-    <h2>
-        This is a Section Subheading!
-    </h2><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
-    </p>
-
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
-    <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
-    </p>
-    <img src = "{% static 'app/images/turtle.jpg' %}"/>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
-    </p>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
+        This application is built in C and Gtk. I used codeblocks as an IDE. I have never tried to compile it on any system other than my own so I can’t
+        guarantee it will work if you download it right now! I am planning on getting a laptop soon(with windows) so I’ll be able to test it then.
+        This was my first C and Gtk application so the code is probably pretty messy, but here it is <a href="https://github.com/LinuxKid21/Mnemonics-Trainer"> on Github. </a>
     </p>
 {% endblock blogContent %}
