@@ -35,7 +35,7 @@ def emptyURL(request):
     return renderPageRequested(request, 'app/pages/home.html')
     
 def blog(request, page_id):
-    if(not path.isfile(path.join(settings.PROJECT_ROOT, 'app/templates/app/pages/', page_id))):
+    if(not path.isfile(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', page_id))):
         return renderPageRequested(request, 'app/pages/notfound.html')
     
     page = get_object_or_404(BlogPage, pk=page_id)
