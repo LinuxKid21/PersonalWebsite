@@ -185,13 +185,9 @@ h3 {
 
 
 
-
-
-
-
-.linenodiv {background: #f0f0f0; border-right: 5px; border-style: solid; border-color: #f0f0f0; font-family: Liberation Mono, monospace;}
-.code {width: 100%; font-family: Liberation Mono, monospace;}
-.highlight {width: 100%; border-left: 5px; border-style: solid; border-color: #fafafa;}
+.highlight pre {overflow-x: auto; overflow-y: hidden; width: 100%; font-family: Liberation Mono, monospace;}
+.lineno {background: #f0f0f0; border-left: 5px; border-style: solid; border-color: #f0f0f0; font-family: Liberation Mono, monospace;}
+.highlight {width: 100%; }
 .highlight pre {width: 100%; margin-bottom: 1em; background: #fafafa; }
 .highlight pre .hll { background-color: #ffffcc }
 .highlight pre .c { color: #60a0b0; font-style: italic } /* Comment */

@@ -1,56 +1,71 @@
 {% extends "app/main.html" %}
 {% load static %}
+{% load pygment_code %}
 {% block content %}
-    <p class = "page-title">Page Title</p>
+    <p class = "page-title"> Home/About Me </p>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis orci ipsum. Aliquam efficitur eros id maximus gravida. Donec nec velit at augue vehicula tristique. Suspendisse potenti. Sed malesuada ligula sed sem lacinia mollis. Vivamus mollis vulputate est eget lobortis. Sed sem dui, ullamcorper ut magna sit amet, imperdiet mollis libero. Aliquam erat volutpat. Duis gravida urna in eros mattis, at luctus tellus molestie. Aenean accumsan turpis sed nunc tristique sodales.
+        Welcome to the website of Levi Stoddard! This is the website where I am going to showcase all of my projects and perhaps even a few blog articles.
     </p>
-
-
-    <img class = "img-left" src = "{% static 'app/images/CircleBoss.png' %}"/>
     <p>
-        Donec volutpat urna quis tortor consequat pulvinar. Suspendisse vel ipsum eget nisi commodo convallis. Vestibulum sollicitudin sed justo et porta. Mauris convallis, dui in hendrerit interdum, libero justo volutpat nunc, at rutrum odio ipsum ut elit. Proin id augue ipsum. Duis odio massa, laoreet nec tempor in, ultricies bibendum ligula. Aliquam tortor massa, vulputate in ex vitae, pulvinar laoreet orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+        I am a third year computer science student at the University of Washington Bothell. I've been programming for about seven years and plan to program for many
+        more to come. MORE CONENT HERE SOON &lt;------------
     </p>
-
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
-    <img class = "img-left" src = "{% static 'app/images/Teleporter.png' %}"/>
+    
+    <h1> external links </h1>
+    <p><a href = "https://www.linkedin.com/in/levistoddard/"> My linkedin profile </a></p>
+    
+    <h1> about this website </h1>
     <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
-    </p><p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
+        This website is built using the django library because I like python and
+        hosted on pythonanywhere because the free service is sufficient for my
+        needs and extremely easy to use (I set up the django project on my computer,
+        pushed it to GitHub, pulled it from GitHub on their website, changed a few files and done!).
     </p>
-    <h2>
-        This is a Section Subheading!
-    </h2><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
-    </p>
-
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
     <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
+        I also created my own django template tag which allows me to show highlighted code like this file which creates registers the tag itself
+        {% pygment_code 'python' %}
+from django import template
+from django.template import Context
+register = template.Library()
+
+from pygments import highlight
+from pygments.lexers import get_lexer_by_name
+from pygments.formatters import HtmlFormatter
+
+
+class PygmentCodeNode(template.Node):
+    def __init__(self, content, code_language):
+        self.content = content
+        self.code_language = code_language
+
+    def render(self, context):
+        # return the highlighted code with buttons which allow easy selection
+        return '<div class="highlight-container">' +\
+        '<button class="hide-lines-button"> toggle line numbers </button>'+\
+        highlight(self.content, get_lexer_by_name(self.code_language, stripall=True), HtmlFormatter(linenos='inline')) +\
+        '</div>'
+
+@register.tag
+def pygment_code(parser, token):
+    try:
+        # split_contents() knows not to split quoted strings.
+        tag_name, code_language = token.split_contents()
+    except ValueError:
+        raise template.TemplateSyntaxError("pygment_code tag requires exactly one argument")
+    
+    if not (code_language[0] == code_language[-1] and code_language[0] in ('"', "'")):
+        raise template.TemplateSyntaxError("pygment_code tag's argument should be in quotes")
+
+    #strip the quotation marks
+    code_language = code_language[1:-1]
+
+    nodelist = parser.parse(('endpygment_code',))
+    parser.delete_first_token()
+    return PygmentCodeNode(nodelist.render(Context()), code_language)
+
+        {% endpygment_code %}
     </p>
-    <img src = "{% static 'app/images/turtle.jpg' %}"/>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
-    </p>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
-    </p>
+    <p><a href = "https://github.com/LinuxKid21/PersonalWebsite"> Here is the code for this website on GitHub</a> All you need to run it is python 3, django, and pygments</p>
+
 
 {% endblock %}

@@ -1,7 +1,12 @@
 $(document).ready(function(){
+    // add slide show functionality
+    // this works by finding all containers called '.slideshow' and gathering
+    // all the children images into the slide show. The buttons in this
+    // container called '.leftButton' and '.rightButton' shift the slide show
+    // left or right accordingly
     function getFunctions(slideDiv) {
         var index = 0
-        var images = slideDiv.find($("img"))
+        var images = slideDiv.find("img")
         
         
         return {
@@ -32,11 +37,25 @@ $(document).ready(function(){
         })
     })
     
+    // finally hide/unhide the appropriate images
     slideFunctions.forEach(function(item, index) {
         item.display()
-        item.slide(1)
-        item.slide(1)
-        item.slide(1)
-        item.display()
+    })
+    
+    
+    
+    
+    // add the ability to hide line numbers in code segments
+    $(".hide-lines-button").each(function(index) {
+        var linesOn = true
+        this.onclick = function(){
+            if(linesOn) {
+                $(this).parent().find(".lineno").css( "display", "none" );
+                linesOn = false
+            } else {
+                $(this).parent().find(".lineno").css( "display", "inline" );
+                linesOn = true
+            }
+        }
     })
 })

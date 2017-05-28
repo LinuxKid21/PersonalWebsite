@@ -13,7 +13,11 @@ class PygmentCodeNode(template.Node):
         self.code_language = code_language
 
     def render(self, context):
-        return highlight(self.content, get_lexer_by_name(self.code_language, stripall=True), HtmlFormatter(linenos=True))
+        # return the highlighted code with buttons which allow easy selection
+        return '<div class="highlight-container">' +\
+        '<button class="hide-lines-button"> toggle line numbers </button>'+\
+        highlight(self.content, get_lexer_by_name(self.code_language, stripall=True), HtmlFormatter(linenos='inline')) +\
+        '</div>'
 
 @register.tag
 def pygment_code(parser, token):
