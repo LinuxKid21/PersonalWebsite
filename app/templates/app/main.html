@@ -9,6 +9,10 @@
         
         <script src="{% static 'app/scripts/jquery-3.2.1.min.js' %}"> </script>
         <script src="{% static 'app/scripts/main.js' %}"> </script>
+        
+        <!-- apparently makes devices use their logical width instead of their real resolution
+            so websites don't appear zoomed out on phones with high pixel density -->
+        <meta name="viewport" content="width=device-width">
     </head>
     <body>
         <div class = "page">
