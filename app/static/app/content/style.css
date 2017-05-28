@@ -160,7 +160,7 @@ h3 {
 
 
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .websiteTitle {
         padding-left: 0;
     }
@@ -189,7 +189,7 @@ h3 {
 }
 
 .slideshow :not(button) {
-    padding:10px;
+    /*padding:10px;*/
     margin:auto;
 }
 
