@@ -160,7 +160,7 @@ h3 {
 
 
 
-@media (max-width: 768px) {
+@media (max-device-width: 768px) {
     .websiteTitle {
         padding-left: 0;
     }
