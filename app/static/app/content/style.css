@@ -182,8 +182,45 @@ h3 {
 
 
 
+.slideshow {
+    background: #AAA;
+    position: relative; /* so absolute position works for children */
+    
+}
+
+.slideshow :not(button) {
+    padding:10px;
+    margin:auto;
+}
+
+.leftButton {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    margin-top: -1.5em;
+    padding: 0px 16px;
+}
+
+.rightButton {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -1.5em;
+    padding: 0px 16px;
+}
 
 
+
+
+
+.highlight-container {
+    position: relative; /* so .hide-lines-button absolute position works */
+}
+.hide-lines-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 
 .highlight pre {overflow-x: auto; overflow-y: hidden; width: 100%; font-family: Liberation Mono, monospace;}
 .lineno {background: #f0f0f0; border-left: 5px; border-style: solid; border-color: #f0f0f0; font-family: Liberation Mono, monospace;}
