@@ -6,6 +6,7 @@
         <title>Levi Stoddard</title>
         <link rel="stylesheet" type="text/css" href="{% static 'app/content/reset.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'app/content/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'app/content/highlight.css' %}">
         
         <script src="{% static 'app/scripts/jquery-3.2.1.min.js' %}"> </script>
         <script src="{% static 'app/scripts/main.js' %}"> </script>
@@ -16,6 +17,8 @@
     </head>
     <body>
         <div class = "page">
+            <!-- this is the area on the side of the screen-->
+            <div id = "grey-area"></div>
             <div class = "websiteHeader">
                 <p class = "websiteTitle">Levi Stoddard</p>
             </div>
@@ -35,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="footer"> <p style="color: #FFF;">&copy;2017</p>
+            <div class="footer"> <p style="color: #FFF; margin: 0;">&copy;2017</p>
             </div>
         </div>
     </body>

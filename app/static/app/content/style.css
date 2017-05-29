@@ -1,40 +1,38 @@
 /* general layout */
 .page {
-    display:table;
+    position:relative;
     width: 100%;
-    height: 100%;
+    min-height: 100%; /* forces the content to be sufficiently large so the footer is at the bottom of the page even with only a small amount of content*/
 }
 
 .sideAndPageHolder {
-    display:table;
     width: 100%;
-    height: 100%;
 }
 
 /* header */
 .websiteTitle {
-    display:table-cell;
+    margin: auto;
     font-size: 2.2em;
     padding: 8px;
     color: #FFF;
     text-align: center;
-    padding-left: 200px;
+    padding-left: 200px; /* make it center on the .centered-content div and not the whole page by offseting navigationbar width*/
 	font-family: "Impact", Times, serif;
 }
 .websiteHeader {
+    width: 100%;
     background-color: #000;
-    height: 1px;
-    display:table-row;
+    height: 60px;
 }
 
 
 /* navigation */
 .navigationbar {
-    display:table-cell;
-    vertical-align: top;
+    position:absolute;
+    /*vertical-align: top;*/
     list-style-type: none;
     width: 200px;
-    background-color: #999;
+    top: 60px;
 }
 .navigationbar li a {
     display: block;
@@ -52,7 +50,13 @@
 .active-link {
     background-color: #A00;
 }
-
+#grey-area {
+    position:fixed;
+    height: 100%;
+    z-index: -1;
+    width: 200px;
+    background-color: #999;
+}
 
 
 /* content */
@@ -69,9 +73,11 @@
 }
 
 .content {
-    display:table-cell;
-    vertical-align: top;
+    /*min-height:100%;*/
+    margin-left: 200px;
+    /*vertical-align: top;*/
     /*width: 600px;*/
+    padding-bottom:20px;
 }
 
 .centered-content {
@@ -84,15 +90,17 @@
 
 /* footer */
 .footer {
-    display:table-row;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     height:20px;
     background-color: #000;
-    width: 100%;
 }
 
 .bloglistlink {
 	font-weight: bold;
-	font-size: 2.2em;
+	font-size: 1.8em;
     margin-top: 30px;
     margin-bottom: 5px;
     border-width: 2px;
@@ -159,6 +167,12 @@ h3 {
 }
 
 
+@media (max-device-width: 1300px), (max-width: 1300px) {
+    .centered-content {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
 
 @media (max-device-width: 768px), (max-width: 768px) {
     .websiteTitle {
@@ -167,16 +181,38 @@ h3 {
     .sideAndPageHolder {
         display:block;
     }
+    #grey-area {
+        display: none;
+    }
     .navigationbar {
+        position: static;
         display:block;
         width: 100%;
     }
-    .centered-content {
-        text-align: justify;
-        padding-left: 5%;
-        padding-right: 5%;
+    
+    .content {
+        margin-left: 0px;
     }
 }
+
+@media (max-device-width: 500px), (max-width: 500px) {
+    .page-title {
+        font-size: 2.2em;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    h2 {
+        font-size: 1.3em;
+    }
+    h3 {
+        font-size: 1em;
+    }
+}
+
+
+
+
 
 
 
@@ -189,7 +225,6 @@ h3 {
 }
 
 .slideshow :not(button) {
-    /*padding:10px;*/
     margin:auto;
 }
 
@@ -213,86 +248,5 @@ h3 {
 
 
 
-.highlight-container {
-    position: relative; /* so .hide-lines-button absolute position works */
-}
-.hide-lines-button {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-}
-
-.highlight pre {overflow-x: auto; overflow-y: hidden; width: 100%; font-family: Liberation Mono, monospace;}
-.lineno {background: #f0f0f0; border-left: 5px; border-style: solid; border-color: #f0f0f0; font-family: Liberation Mono, monospace;}
-.highlight {width: 100%; }
-.highlight pre {width: 100%; margin-bottom: 1em; background: #fafafa; }
-.highlight pre .hll { background-color: #ffffcc }
-.highlight pre .c { color: #60a0b0; font-style: italic } /* Comment */
-.highlight pre .err { border: 1px solid #FF0000 } /* Error */
-.highlight pre .k { color: #007020; font-weight: bold } /* Keyword */
-.highlight pre .o { color: #666666 } /* Operator */
-.highlight pre .ch { color: #60a0b0; font-style: italic } /* Comment.Hashbang */
-.highlight pre .cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
-.highlight pre .cp { color: #007020 } /* Comment.Preproc */
-.highlight pre .cpf { color: #60a0b0; font-style: italic } /* Comment.PreprocFile */
-.highlight pre .c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
-.highlight pre .cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
-.highlight pre .gd { color: #A00000 } /* Generic.Deleted */
-.highlight pre .ge { font-style: italic } /* Generic.Emph */
-.highlight pre .gr { color: #FF0000 } /* Generic.Error */
-.highlight pre .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight pre .gi { color: #00A000 } /* Generic.Inserted */
-.highlight pre .go { color: #888888 } /* Generic.Output */
-.highlight pre .gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.highlight pre .gs { font-weight: bold } /* Generic.Strong */
-.highlight pre .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight pre .gt { color: #0044DD } /* Generic.Traceback */
-.highlight pre .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
-.highlight pre .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
-.highlight pre .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
-.highlight pre .kp { color: #007020 } /* Keyword.Pseudo */
-.highlight pre .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
-.highlight pre .kt { color: #902000 } /* Keyword.Type */
-.highlight pre .m { color: #40a070 } /* Literal.Number */
-.highlight pre .s { color: #4070a0 } /* Literal.String */
-.highlight pre .na { color: #4070a0 } /* Name.Attribute */
-.highlight pre .nb { color: #007020 } /* Name.Builtin */
-.highlight pre .nc { color: #0e84b5; font-weight: bold } /* Name.Class */
-.highlight pre .no { color: #60add5 } /* Name.Constant */
-.highlight pre .nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.highlight pre .ni { color: #d55537; font-weight: bold } /* Name.Entity */
-.highlight pre .ne { color: #007020 } /* Name.Exception */
-.highlight pre .nf { color: #06287e } /* Name.Function */
-.highlight pre .nl { color: #002070; font-weight: bold } /* Name.Label */
-.highlight pre .nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.highlight pre .nt { color: #062873; font-weight: bold } /* Name.Tag */
-.highlight pre .nv { color: #bb60d5 } /* Name.Variable */
-.highlight pre .ow { color: #007020; font-weight: bold } /* Operator.Word */
-.highlight pre .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight pre .mb { color: #40a070 } /* Literal.Number.Bin */
-.highlight pre .mf { color: #40a070 } /* Literal.Number.Float */
-.highlight pre .mh { color: #40a070 } /* Literal.Number.Hex */
-.highlight pre .mi { color: #40a070 } /* Literal.Number.Integer */
-.highlight pre .mo { color: #40a070 } /* Literal.Number.Oct */
-.highlight pre .sa { color: #4070a0 } /* Literal.String.Affix */
-.highlight pre .sb { color: #4070a0 } /* Literal.String.Backtick */
-.highlight pre .sc { color: #4070a0 } /* Literal.String.Char */
-.highlight pre .dl { color: #4070a0 } /* Literal.String.Delimiter */
-.highlight pre .sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
-.highlight pre .s2 { color: #4070a0 } /* Literal.String.Double */
-.highlight pre .se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
-.highlight pre .sh { color: #4070a0 } /* Literal.String.Heredoc */
-.highlight pre .si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
-.highlight pre .sx { color: #c65d09 } /* Literal.String.Other */
-.highlight pre .sr { color: #235388 } /* Literal.String.Regex */
-.highlight pre .s1 { color: #4070a0 } /* Literal.String.Single */
-.highlight pre .ss { color: #517918 } /* Literal.String.Symbol */
-.highlight pre .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight pre .fm { color: #06287e } /* Name.Function.Magic */
-.highlight pre .vc { color: #bb60d5 } /* Name.Variable.Class */
-.highlight pre .vg { color: #bb60d5 } /* Name.Variable.Global */
-.highlight pre .vi { color: #bb60d5 } /* Name.Variable.Instance */
-.highlight pre .vm { color: #bb60d5 } /* Name.Variable.Magic */
-.highlight pre .il { color: #40a070 } /* Literal.Number.Integer.Long */
 
 
