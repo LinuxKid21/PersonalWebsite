@@ -2,55 +2,15 @@
 {% load static %}
 
 {% block blogContent %}
-    <strong> THIS IS ANOTHER PAGE </strong>
-    <ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li>
-    </ul>
-    <img src = "{% static 'app/images/CircleBoss.png' %}"/>
+    <h1> The Experiment </h1>
     <p>
-        Donec volutpat urna quis tortor consequat pulvinar. Suspendisse vel ipsum eget nisi commodo convallis. Vestibulum sollicitudin sed justo et porta. Mauris convallis, dui in hendrerit interdum, libero justo volutpat nunc, at rutrum odio ipsum ut elit. Proin id augue ipsum. Duis odio massa, laoreet nec tempor in, ultricies bibendum ligula. Aliquam tortor massa, vulputate in ex vitae, pulvinar laoreet orci. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+        A while ago I was experimenting with multi-core processing and one of those experiments was with a naive image blurring algorithm.
+        The algorithm takes in two variables: n and r.
+        All it does is, for every pixel, take a box with a size of n*n around the pixel, calculate the average color of those pixels and assigns that average to the original pixel.
+        Because this naive blur effect looks blocky it gets repeated r times for desired smoothness.
     </p>
+    <img src = "{% static 'app/images/ImageProcessorContrast.gif' %}" />
+    <p>(Source is from the Blender3d Forums here)</p>
 
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
-    <img class = "img-left" src = "{% static 'app/images/Teleporter.png' %}"/>
-    <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
-    </p><p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
-    </p>
-    <h2>
-        This is a Section Subheading!
-    </h2><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
-    </p>
-
-
-    <h1>
-        This is a Section Heading!
-    </h1>
-    <h2>
-        This is a Section Subheading!
-    </h2>
-    <p>
-        Praesent sodales tincidunt tortor, ac malesuada enim varius quis. Curabitur tristique volutpat neque, vitae vehicula odio hendrerit in. Vestibulum rutrum convallis enim. Praesent consequat rutrum justo sit amet faucibus. Sed lobortis dapibus magna. Nunc rutrum, mauris in dapibus consectetur, lacus tellus condimentum ipsum, at placerat justo nisi non tortor. Aenean tincidunt eros vel dolor rhoncus, eget rutrum mauris elementum.
-    </p>
-    <img src = "{% static 'app/images/turtle.jpg' %}"/>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Sed placerat condimentum eros, eu ultrices ex congue eget. Donec varius eros augue, nec fermentum est eleifend ac. Quisque malesuada, neque ut consequat finibus, diam turpis fringilla urna, eu luctus felis lacus eu urna. Praesent pharetra tempor eros a faucibus. Aenean sodales posuere massa, sit amet rhoncus sapien dictum in. Praesent nec elementum lectus. Donec condimentum nec nisl sed egestas. Cras vehicula elementum urna, ut convallis diam vulputate eget.
-    </p>
-    <h3>
-        This is a Section Subsubheading!
-    </h3><p>
-        Integer ac libero justo. Vestibulum posuere vulputate commodo. Praesent a dui accumsan, sagittis turpis at, placerat est. Aliquam neque urna, ornare elementum mi at, posuere vehicula purus. Nullam id tortor ac nulla mollis rhoncus ut et ligula. Mauris euismod urna massa, et gravida quam pellentesque eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris sit amet risus non erat convallis pharetra. Nunc leo lectus, convallis ac metus ut, faucibus imperdiet quam. Nullam luctus ligula fermentum accumsan ultrices. Praesent lacinia venenatis quam, vitae aliquet nunc dictum at. Vivamus cursus turpis velit, et tincidunt dolor sodales eget.
-    </p>
+    <p>Running the algorithm without threads with n=5 and r=3 took 29 seconds. Running the same test with 8 threads only took 3 seconds!</p>
 {% endblock blogContent %}

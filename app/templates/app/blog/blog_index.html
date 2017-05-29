@@ -4,12 +4,12 @@
     <p class = "page-title"> Blog </p>
     {% for page in blogPages %}
     
-        
-        <div class="bloglistlink"><a href="{% url 'blog' page.contentFile %}">{{page.title}}</a></div>
-        {% with imgLoc='app/images/'|add:page.imageFile %}
-            <img class = "img-left" src = "{% static imgLoc %}"/>
-        {% endwith %}
-        <p>{{page.summary}}
-    </p>
+        <div style = "clear: both;">
+            <div class="bloglistlink"><a href="{% url 'blog' page.contentFile %}">{{page.title}}</a></div>
+            {% with imgLoc='app/images/'|add:page.imageFile %}
+                <img class = "img-left" style = "max-width: 200px; max-height: 200px; margin-bottom: 10px;" src = "{% static imgLoc %}"/>
+            {% endwith %}
+            <p>{{page.summary}}</p>
+        </div>
     {% endfor %}
 {% endblock %}
