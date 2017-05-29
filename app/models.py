@@ -25,4 +25,13 @@ class BlogPage(models.Model):
         return abs((datetime.datetime.combine(self.publication_date, self.publication_time) - datetime.datetime.combine(self.edit_date, self.edit_time)).total_seconds()) > 1
 
 
+class BlogTag(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=15)
+    blogPage = models.ForeignKey('BlogPage', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name + ' -------- ' + str(self.blogPage)
+
+
 admin.site.register(BlogPage)
+admin.site.register(BlogTag)

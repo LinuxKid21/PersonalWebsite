@@ -15,9 +15,7 @@ urlpatterns = [
     
     url(r'^blog/index.html$', blog_index, name='blog_index'),
     url(r'^blog/$', blog_index, name='blog_index'),
-    
     url(r'^blog/(?P<page_id>[\S]+)$', blog, name='blog'),
-    # url(r'^project/(?P<page_id>[\S]+)$', project, name='project'),
     
     url(r'^admin/', admin.site.urls),
     
