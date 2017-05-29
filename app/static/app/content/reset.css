@@ -22,6 +22,7 @@ time, mark, audio, video {
 	font-size: 1em;
 	font: inherit;
 	vertical-align: baseline;
+	font-family: "Times New Roman", Times, serif;
 }
 html, body {
 	height: 100%;
@@ -56,8 +57,8 @@ p {
 	font-size: 1em;
 	line-height: 1.2em;
 	margin-bottom: 1em;
-	font-family: "Times New Roman", Times, serif;
 }
+
 img {
 	max-width: 100%;
 }
