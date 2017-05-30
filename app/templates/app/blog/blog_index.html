@@ -1,7 +1,15 @@
 {% extends "app/main.html" %}
 {% load static %}
 {% block content %}
-    <p class = "page-title"> Blog </p>
+    {% if tag_name == "project" %}
+        <p class = "page-title"> Projects </p>
+    {% elif tag_name == "blog" %}
+        <p class = "page-title"> Blog </p>
+    {% else %}
+        <p class = "page-title"> Error </p>
+        <p>Oops, looks like this page doesn't exist.</p>
+    {% endif %}
+
     {% for page in blogPages %}
     
         <div style = "clear: both;">

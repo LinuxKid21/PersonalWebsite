@@ -13,7 +13,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^$', emptyURL, name='emptyURL'),
     
-    url(r'^blog/index.html$', blog_index, name='blog_index'),
+    url(r'^index/(?P<tag_name>[\S]*)$', blog_index, name='blog_index'),
     url(r'^blog/(?P<page_id>[\S]+)$', blog, name='blog'),
     
     url(r'^admin/', admin.site.urls),

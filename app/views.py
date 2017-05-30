@@ -8,7 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from DjangoApp import settings
 from os import path
-from .models import BlogPage
+from .models import *
 
 
 def renderPageRequested(request, page_id, context={}):
@@ -42,10 +42,17 @@ def blog(request, page_id):
     return renderPageRequested(request, 'app/blog/' + page_id,
         {'blogPage': page})
 
-def blog_index(request):
+def blog_index(request, tag_name):
     pages = BlogPage.objects.order_by('publication_date', 'publication_time')
-    return renderPageRequested(request, 'app/blog/blog_index.html',
-        {'blogPages': pages})
+    if(not tag_name):
+        return renderPageRequested(request, 'app/blog/blog_index.html',
+            {'blogPages': pages,
+            'tag_name' : tag_name})
+    else:
+        tag_name = tag_name.lower()
+        return renderPageRequested(request, 'app/blog/blog_index.html',
+            {'blogPages': pages.filter(tag = tag_name),
+            'tag_name' : tag_name})
 
 def invalidURL(request):
     return renderPageRequested(request, 'app/pages/notfound.html')
