@@ -9,12 +9,16 @@ from datetime import datetime
 from DjangoApp import settings
 from os import path
 from .models import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
 def renderPageRequested(request, page_id, context={}):
     """Renders the main page."""
     assert isinstance(request, HttpRequest)
     
+    # add loggedin variable required by the base template
+    context.update({'loggedin' : request.user.is_authenticated})
     return render(
         request,
         page_id,
@@ -57,3 +61,12 @@ def blog_index(request, tag_name):
 def invalidURL(request):
     return renderPageRequested(request, 'app/pages/notfound.html')
 
+@login_required
+def myAdmin(request, page_id):
+    if(not page_id):
+        return renderPageRequested(request, 'app/admin/admin.html')
+    elif(page_id == 'logout'):
+        logout(request)
+        return renderPageRequested(request, 'app/admin/logout.html')
+    else:
+        return renderPageRequested(request, 'app/admin/' + page_id)

@@ -1,0 +1,7 @@
+{% extends "app/main.html" %}
+{% load static %}
+{% load pygment_code %}
+{% block content %}
+    <p class = "page-title"> Successfully Logged Out! </p>
+    <a href = "{% url 'main' 'home.html' %}"> return home </a>
+{% endblock %}

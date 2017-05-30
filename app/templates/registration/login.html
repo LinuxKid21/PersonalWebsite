@@ -1,0 +1,39 @@
+{% extends "app/main.html" %}
+{% load static %}
+
+<!-- eventually make this scale much better on mobile! -->
+{% block content %}
+    <p class = "page-title"> Login </p>
+    
+    <div style = "margin: auto; width: 50%;">
+        {% if form.errors %}
+            <p style = "color:red;">Your username and password didn't match. Please try again.</p>
+        {% endif %}
+
+        <form method="post" action="{% url 'main' 'login/' %}">
+        {% csrf_token %}
+            <div>
+                <div style = "float:left;">
+                    {{ form.username.label_tag }}
+                </div>
+                <div style = "float:right;">
+                    {{ form.username }}
+                </div>
+            </div>
+            
+            <div style = "clear:both; padding: 10px 0px;">
+                <div style = "float:left;">
+                    {{ form.password.label_tag }}
+                </div>
+                <div style = "float:right;">
+                    {{ form.password }}
+                </div>
+            </div>
+
+            <div style = "clear:both;float: right; padding: 10px 0px;">
+                <input type="submit" value="login" />
+            </div>
+            <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+    </div>
+{% endblock %}
