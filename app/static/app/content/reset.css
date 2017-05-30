@@ -71,7 +71,7 @@ em, i {
 
 button {
     background-color: #f0f0f0;
-    color: #007020;
+    color: #964524;
     padding: 0px 32px;
 	height: 3em;
     text-align: center;
@@ -79,9 +79,14 @@ button {
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-	border: 2px solid #007020;
+	border: 2px solid #964524;
 }
 
 button:hover {
     background-color: #d0d0d0;
+}
+
+a {
+	color: #964524;
+    text-decoration: none;
 }
