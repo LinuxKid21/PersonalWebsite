@@ -18,6 +18,14 @@
                 <img class = "img-left" style = "max-width: 200px; max-height: 200px; margin-bottom: 10px;" src = "{% static imgLoc %}"/>
             {% endwith %}
             <p>{{page.summary}}</p>
+            {% if admin %}
+            <!-- add delete capabilities for me :) -->
+            <form action="{% url 'main' 'admin/delete' %}" method="post">
+                <input type="hidden" name="pageID" value = "{{page.contentFile}}">
+                <input type="submit" value="delete">
+                {% csrf_token %}
+            </form>
+            {% endif %}
         </div>
     {% endfor %}
 {% endblock %}

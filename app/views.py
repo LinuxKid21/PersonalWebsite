@@ -8,6 +8,7 @@ from django.template import RequestContext
 from datetime import datetime
 from DjangoApp import settings
 from os import path
+import os
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
@@ -52,12 +53,14 @@ def blog_index(request, tag_name):
     if(not tag_name):
         return renderPageRequested(request, 'app/blog/blog_index.html',
             {'blogPages': pages,
-            'tag_name' : tag_name})
+            'tag_name' : tag_name,
+            'admin' : request.user.is_authenticated})
     else:
         tag_name = tag_name.lower()
         return renderPageRequested(request, 'app/blog/blog_index.html',
             {'blogPages': pages.filter(tag = tag_name),
-            'tag_name' : tag_name})
+            'tag_name' : tag_name,
+            'admin' : request.user.is_authenticated})
 
 def invalidURL(request):
     return renderPageRequested(request, 'app/pages/notfound.html')
@@ -115,6 +118,15 @@ def myAdmin(request, page_id):
         
         return renderPageRequested(request, 'app/blog/' + fileName)
         
+    elif(page_id == 'delete'):
+        fileName = request.POST.get('pageID', 'INVALID')
+        if(fileName == 'INVALID'):
+            return  renderPageRequested(request, 'app/pages/notfound.html')
+        
+        page = BlogPage.objects.get(contentFile = fileName)
+        page.delete()
+        os.remove(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName))
+        return renderPageRequested(request, 'app/pages/home.html')
         
     else:
         return renderPageRequested(request, 'app/pages/notfound.html')
