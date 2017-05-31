@@ -18,6 +18,7 @@ class BlogPage(models.Model):
     contentFile = models.CharField(max_length=50, primary_key=True)
     tag = models.CharField(max_length=15) # something like Project or Blog
     imageFile = models.CharField(max_length=50, default='Teleporter.png')
+    published = models.BooleanField(default=False)
     def __str__(self):
         return self.title + ' -------- ' + self.tag
     @property

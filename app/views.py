@@ -11,6 +11,7 @@ from os import path
 from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+import uuid
 
 
 def renderPageRequested(request, page_id, context={}):
@@ -61,12 +62,59 @@ def blog_index(request, tag_name):
 def invalidURL(request):
     return renderPageRequested(request, 'app/pages/notfound.html')
 
+
+
+
+
+
 @login_required
 def myAdmin(request, page_id):
     if(not page_id):
         return renderPageRequested(request, 'app/admin/admin.html')
+        
+        
     elif(page_id == 'logout'):
         logout(request)
         return renderPageRequested(request, 'app/admin/logout.html')
+        
+        
+    elif(page_id == 'CreatePost'):
+        fileName = str(uuid.uuid4()) + '.html'
+        open(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName), 'w').close()
+        newPage = BlogPage.objects.create(title = 'default-title', summary = '', contentFile = fileName, tag = 'Project')
+        newPage.save()
+        return renderPageRequested(request, 'app/admin/editPost.html', {'editPage' : newPage})
+        
+        
+        
+    elif(page_id == 'publish'):
+        title = request.POST.get('title', 'default-title')
+        image = request.POST.get('image', 'Teleporter.png')
+        tag = request.POST.get('tag', 'project')
+        status = request.POST.get('status', 'Draft')
+        content = request.POST.get('content', 'insert code here')
+        fileName = request.POST.get('pageID', 'INVALID')
+        if(fileName == 'INVALID'):
+            return  renderPageRequested(request, 'app/pages/notfound.html')
+        
+        blogFile = open(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName), 'w')
+        blogFile.write(r'''
+        {% extends "app/blog/blog_template.html" %}
+        {% load static %}
+        {% load pygment_code %}
+        {% block blogContent %}''' + content + r'{% endblock blogContent %}')
+        blogFile.close()
+        
+        page = BlogPage.objects.get(contentFile = fileName)
+        page.title = title
+        page.image = image
+        page.tag = tag
+        page.published = (status == 'Published')
+        page.summary = content[0:500]
+        page.save()
+        
+        return renderPageRequested(request, 'app/blog/' + fileName)
+        
+        
     else:
-        return renderPageRequested(request, 'app/admin/' + page_id)
+        return renderPageRequested(request, 'app/pages/notfound.html')

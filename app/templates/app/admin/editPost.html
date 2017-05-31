@@ -1,0 +1,29 @@
+{% extends "app/main.html" %}
+{% load static %}
+{% load pygment_code %}
+{% block content %}
+
+    <p class = "page-title"> Create/Edit Post </p>
+    <form action="{% url 'main' 'admin/publish' %}" method="post">
+        Title: <input type="text" name="title" value = "{{editPage.title}}"><br><br>
+        Image: <input type="text" name="image" value = "{{editPage.imageFile}}"><br><br>
+        Tag:
+        <select name = "tag">
+            <option value="project" {% if editPage.tag == 'project' %} selected {% endif %} >project</option>
+            <option value="blog" {% if editPage.tag == 'blog' %} selected {% endif %} >blog</option>
+        </select><br><br>
+        
+        Publish:
+        <select name = "status">
+            <option value="draft" {% if not editPage.published %} selected {% endif %} >Draft</option>
+            <option value="publish" {% if editPage.published %} selected {% endif %}>Publish</option>
+        </select><br><br>
+        
+        Content: <br><textarea name="content">Enter code here</textarea><br><br>
+        <input type="hidden" name="pageID" value = "{{editPage.contentFile}}">
+        <input type="submit">
+        {% csrf_token %}
+    </form>
+
+
+{% endblock %}
