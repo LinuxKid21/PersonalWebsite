@@ -11,21 +11,62 @@
     {% endif %}
 
     {% for page in blogPages %}
-    
+    {% if page.published %}
         <div style = "clear: both;">
-            <div class="bloglistlink"><a href="{% url 'blog' page.contentFile %}">{{page.title}}</a></div>
+            <div class="bloglistlink"><a href="{% url 'blog' page.id %}">{{page.title}}</a></div>
             {% with imgLoc='app/images/'|add:page.imageFile %}
                 <img class = "img-left" style = "max-width: 200px; max-height: 200px; margin-bottom: 10px;" src = "{% static imgLoc %}"/>
             {% endwith %}
-            <p>{{page.summary}}</p>
+            <p>{{page.summary|safe}}</p>
+            
+            
+            
             {% if admin %}
             <!-- add delete capabilities for me :) -->
             <form action="{% url 'main' 'admin/delete' %}" method="post">
-                <input type="hidden" name="pageID" value = "{{page.contentFile}}">
+                <input type="hidden" name="pageID" value = "{{page.id}}">
                 <input type="submit" value="delete">
+                {% csrf_token %}
+            </form>
+            
+            <!-- add update capabilities for me :) -->
+            <form action="{% url 'main' 'admin/update' %}" method="post">
+                <input type="hidden" name="pageID" value = "{{page.id}}">
+                <input type="submit" value="update">
                 {% csrf_token %}
             </form>
             {% endif %}
         </div>
+    {% endif %}
     {% endfor %}
+    
+    {% comment %} this shows drafts, but only for the admin {% endcomment %}
+    {% if admin %}
+        <p class = "page-title"> Drafts </p>
+        {% for page in blogPages %}
+        {% if not page.published %}
+            <div style = "clear: both;">
+                <div class="bloglistlink"><a href="{% url 'blog' page.id %}">{{page.title}}</a></div>
+                {% with imgLoc='app/images/'|add:page.imageFile %}
+                    <img class = "img-left" style = "max-width: 200px; max-height: 200px; margin-bottom: 10px;" src = "{% static imgLoc %}"/>
+                {% endwith %}
+                <p>{{page.summary|safe}}</p>
+                
+                
+                
+                <form action="{% url 'main' 'admin/delete' %}" method="post">
+                    <input type="hidden" name="pageID" value = "{{page.id}}">
+                    <input type="submit" value="delete">
+                    {% csrf_token %}
+                </form>
+                
+                <form action="{% url 'main' 'admin/update' %}" method="post">
+                    <input type="hidden" name="pageID" value = "{{page.id}}">
+                    <input type="submit" value="update">
+                    {% csrf_token %}
+                </form>
+            </div>
+        {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endblock %}

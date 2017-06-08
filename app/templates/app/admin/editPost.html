@@ -15,12 +15,12 @@
         
         Publish:
         <select name = "status">
-            <option value="draft" {% if not editPage.published %} selected {% endif %} >Draft</option>
-            <option value="publish" {% if editPage.published %} selected {% endif %}>Publish</option>
+            <option value="Draft" {% if not editPage.published %} selected {% endif %} >Draft</option>
+            <option value="Published" {% if editPage.published %} selected {% endif %}>Publish</option>
         </select><br><br>
         
-        Content: <br><textarea name="content">Enter code here</textarea><br><br>
-        <input type="hidden" name="pageID" value = "{{editPage.contentFile}}">
+        Content: <br><textarea name="content">{{ editPage.content }}</textarea><br><br>
+        <input type="hidden" name="pageID" value = "{{editPage.id}}">
         <input type="submit">
         {% csrf_token %}
     </form>

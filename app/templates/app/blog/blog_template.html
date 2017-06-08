@@ -6,8 +6,6 @@
         <p style="margin-bottom: 0em; text-align: right;"> last edited: {{blogPage.edit_date}} {{blogPage.edit_time}} PST/PDT</p>
     {% endif %}
     
-    {% block blogContent %}
-        <p> blog page not found! </p> <br />
-        <a href="{% url 'main' 'blog_index.html' %}"> return to blog index </a>
-    {% endblock blogContent %}
+    {{ blogPage.content|safe }}
+    
 {% endblock %}

@@ -13,6 +13,7 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 import uuid
+import re
 
 
 def renderPageRequested(request, page_id, context={}):
@@ -41,11 +42,8 @@ def emptyURL(request):
     return renderPageRequested(request, 'app/pages/home.html')
     
 def blog(request, page_id):
-    if(not path.isfile(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', page_id))):
-        return renderPageRequested(request, 'app/pages/notfound.html')
-    
     page = get_object_or_404(BlogPage, pk=page_id)
-    return renderPageRequested(request, 'app/blog/' + page_id,
+    return renderPageRequested(request, 'app/blog/blog_template.html',
         {'blogPage': page})
 
 def blog_index(request, tag_name):
@@ -82,11 +80,17 @@ def myAdmin(request, page_id):
         
         
     elif(page_id == 'CreatePost'):
-        fileName = str(uuid.uuid4()) + '.html'
-        open(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName), 'w').close()
-        newPage = BlogPage.objects.create(title = 'default-title', summary = '', contentFile = fileName, tag = 'Project')
+        newPage = BlogPage.objects.create(title = 'default-title', summary = '', content = '', tag = 'Project')
         newPage.save()
         return renderPageRequested(request, 'app/admin/editPost.html', {'editPage' : newPage})
+        
+        
+    elif(page_id == 'update'):
+        pageId = request.POST.get('pageID', 'INVALID')
+        if(pageId == 'INVALID'):
+            return  renderPageRequested(request, 'app/pages/notfound.html')
+        page = BlogPage.objects.get(id = pageId)
+        return renderPageRequested(request, 'app/admin/editPost.html', {'editPage' : page})
         
         
         
@@ -96,37 +100,30 @@ def myAdmin(request, page_id):
         tag = request.POST.get('tag', 'project')
         status = request.POST.get('status', 'Draft')
         content = request.POST.get('content', 'insert code here')
-        fileName = request.POST.get('pageID', 'INVALID')
-        if(fileName == 'INVALID'):
+        pageId = request.POST.get('pageID', 'INVALID')
+        if(pageId == 'INVALID'):
             return  renderPageRequested(request, 'app/pages/notfound.html')
         
-        blogFile = open(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName), 'w')
-        blogFile.write(r'''
-        {% extends "app/blog/blog_template.html" %}
-        {% load static %}
-        {% load pygment_code %}
-        {% block blogContent %}''' + content + r'{% endblock blogContent %}')
-        blogFile.close()
-        
-        page = BlogPage.objects.get(contentFile = fileName)
+        page = BlogPage.objects.get(id = pageId)
+        page.content = content
         page.title = title
         page.image = image
         page.tag = tag
         page.published = (status == 'Published')
-        page.summary = content[0:500]
+        # summary is first 500 words of content with all paragrap tags, headers(and their content) and images removed. More to come...
+        page.summary = re.sub(r'(?:<p[\s\S]*?>|</p>|<h1>[\s\S]*?</h1>|<h2>[\s\S]*?</h2>|<h3>[\s\S]*?</h3>|<img[\s\S]*?/>)', '', content[0:1000])[0:500]
         page.save()
         
-        return renderPageRequested(request, 'app/blog/' + fileName)
+        return renderPageRequested(request, 'app/admin/preview.html', {'blogPage' : page})
         
     elif(page_id == 'delete'):
-        fileName = request.POST.get('pageID', 'INVALID')
-        if(fileName == 'INVALID'):
+        pageId = request.POST.get('pageID', 'INVALID')
+        if(pageId == 'INVALID'):
             return  renderPageRequested(request, 'app/pages/notfound.html')
         
-        page = BlogPage.objects.get(contentFile = fileName)
+        page = BlogPage.objects.get(id = pageId)
         page.delete()
-        os.remove(path.join(settings.PROJECT_ROOT, 'app/templates/app/blog/', fileName))
-        return renderPageRequested(request, 'app/pages/home.html')
+        return renderPageRequested(request, 'app/admin/deleted.html')
         
     else:
         return renderPageRequested(request, 'app/pages/notfound.html')

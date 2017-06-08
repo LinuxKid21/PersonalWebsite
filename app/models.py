@@ -7,6 +7,7 @@ from DjangoApp import settings
 from os import path
 from django.contrib import admin
 import datetime
+import uuid
 
 class BlogPage(models.Model):
     publication_date = models.DateField(auto_now_add=True)
@@ -15,10 +16,11 @@ class BlogPage(models.Model):
     edit_time = models.TimeField(auto_now=True)
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=500)
-    contentFile = models.CharField(max_length=50, primary_key=True)
+    content = models.TextField(max_length=50)
     tag = models.CharField(max_length=15) # something like Project or Blog
     imageFile = models.CharField(max_length=50, default='Teleporter.png')
     published = models.BooleanField(default=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     def __str__(self):
         return self.title + ' -------- ' + self.tag
     @property
