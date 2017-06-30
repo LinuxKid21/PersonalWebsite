@@ -6,6 +6,11 @@
     right: 20px;
     top: 20px;
 }
+@media (max-device-width: 768px), (max-width: 768px) {
+    .hide-lines-button {
+        display: none;
+    }
+}
 
 .highlight pre {
     overflow-x: auto;

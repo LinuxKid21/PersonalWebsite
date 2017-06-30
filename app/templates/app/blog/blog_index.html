@@ -18,6 +18,8 @@
                 <img class = "img-left" style = "max-width: 200px; max-height: 200px; margin-bottom: 10px;" src = "{% static imgLoc %}"/>
             {% endwith %}
             <p>{{page.summary|safe}}</p>
+            <p style="margin-bottom: 0em; text-align: right;">published: {{page.publication_date}} {{page.publication_time}} PST/PDT</p>
+            <p style="margin-bottom: 0em; text-align: right;">last edited: {{page.edit_date}} {{page.edit_time}} PST/PDT</p>
             
             
             

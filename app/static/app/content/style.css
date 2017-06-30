@@ -6,6 +6,7 @@
 }
 
 .sideAndPageHolder {
+    padding-bottom: 100px;
     width: 100%;
 }
 
@@ -33,6 +34,9 @@
     list-style-type: none;
     width: 200px;
     top: 60px;
+}
+.navigationbar li:before {
+	content:"";
 }
 .navigationbar li a {
     display: block;
@@ -120,7 +124,7 @@ h1 {
 	color: #A00;
 	font-weight: bold;
 	font-size: 2.2em;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 5px;
     border-width: 2px;
     border-color: #000;

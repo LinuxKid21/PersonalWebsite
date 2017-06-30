@@ -13,9 +13,14 @@ class PygmentCodeNode(template.Node):
         self.code_language = code_language
 
     def render(self, context):
+        lineCount = self.content.count('\n')
+        hideLines = ''
+        if(lineCount > 5):
+            hideLines = '<button class="hide-lines-button"> toggle line numbers </button>'
+        
         # return the highlighted code with buttons which allow easy selection
         return '<div class="highlight-container">' +\
-        '<button class="hide-lines-button"> toggle line numbers </button>'+\
+        hideLines+\
         highlight(self.content, get_lexer_by_name(self.code_language, stripall=True), HtmlFormatter(linenos='inline')) +\
         '</div>'
 

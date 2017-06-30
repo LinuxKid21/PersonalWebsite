@@ -14,6 +14,49 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 import uuid
 import re
+from django.template import Context, Template
+from django.http import HttpResponse
+
+blog_template = '''
+{% extends "app/main.html" %}
+{% load static %}
+{% load pygment_code %}
+{% block content %}
+    <p class = "page-title"> {{blogPage.title}} </p>
+    <p style="margin-bottom: 0em; text-align: right;"> published: {{blogPage.publication_date}} {{blogPage.publication_time}} PST/PDT</p>
+    {% if blogPage.edited %}
+        <p style="margin-bottom: 0em; text-align: right;"> last edited: {{blogPage.edit_date}} {{blogPage.edit_time}} PST/PDT</p>
+    {% endif %}'''
+
+
+blog_template_preview = '''
+{% extends "app/main.html" %}
+{% load static %}
+{% load pygment_code %}
+
+{% block content %}
+    <p style = "margin-top: 80px;"> this is a preview page.
+        {% if blogPage.published %}
+            It has been <b>published</b>. See the published page <a href = "{% url "blog" blogPage.id %}">here</a>
+        {% else %}
+            It is just a <b>draft</b>.
+        {% endif %}
+        <form action="{% url 'main' 'admin/update' %}" method="post">
+            <input type="hidden" name="pageID" value = "{{blogPage.id}}">
+            <input type="submit" value = "go back and edit">
+            {% csrf_token %}
+        </form>
+    </p>
+    
+        
+    <p class = "page-title"> {{blogPage.title}} </p>
+    <p style="margin-bottom: 0em; text-align: right;"> published: {{blogPage.publication_date}} {{blogPage.publication_time}} PST/PDT</p>
+    {% if blogPage.edited %}
+        <p style="margin-bottom: 0em; text-align: right;"> last edited: {{blogPage.edit_date}} {{blogPage.edit_time}} PST/PDT</p>
+    {% endif %}'''
+
+blog_template_ending = '{% endblock %}'
+
 
 
 def renderPageRequested(request, page_id, context={}):
@@ -43,11 +86,16 @@ def emptyURL(request):
     
 def blog(request, page_id):
     page = get_object_or_404(BlogPage, pk=page_id)
-    return renderPageRequested(request, 'app/blog/blog_template.html',
-        {'blogPage': page})
+    template = Template(blog_template + page.content + blog_template_ending)
+    context = RequestContext(request, {'blogPage': page,
+        'loggedin' : request.user.is_authenticated})
+    # return renderPageRequested(request, 'app/blog/blog_template.html',
+    #     {'blogPage': page,
+    #     'loggedin' : request.user.is_authenticated})
+    return HttpResponse(template.render(context))
 
 def blog_index(request, tag_name):
-    pages = BlogPage.objects.order_by('publication_date', 'publication_time')
+    pages = BlogPage.objects.order_by('-publication_date', '-publication_time')
     if(not tag_name):
         return renderPageRequested(request, 'app/blog/blog_index.html',
             {'blogPages': pages,
@@ -107,14 +155,19 @@ def myAdmin(request, page_id):
         page = BlogPage.objects.get(id = pageId)
         page.content = content
         page.title = title
-        page.image = image
+        page.imageFile = image
         page.tag = tag
         page.published = (status == 'Published')
-        # summary is first 500 words of content with all paragrap tags, headers(and their content) and images removed. More to come...
-        page.summary = re.sub(r'(?:<p[\s\S]*?>|</p>|<h1>[\s\S]*?</h1>|<h2>[\s\S]*?</h2>|<h3>[\s\S]*?</h3>|<img[\s\S]*?/>)', '', content[0:1000])[0:500]
+        # summary is first 500 words of content with all paragrap tags, headers(and their content), django templates, and images removed. More to come...
+        page.summary = re.sub(r'(?:<p[\s\S]*?>|</p>|<h1>[\s\S]*?</h1>|<h2>[\s\S]*?</h2>|<h3>[\s\S]*?</h3>|<img[\s\S]*?/>|{%[\s\S]*?%})', '', content[0:1000])[0:500] + '...'
         page.save()
         
-        return renderPageRequested(request, 'app/admin/preview.html', {'blogPage' : page})
+        
+        template = Template(blog_template_preview + page.content + blog_template_ending)
+        context = RequestContext(request, {'blogPage': page,
+            'loggedin' : request.user.is_authenticated})
+        return HttpResponse(template.render(context))
+        # return renderPageRequested(request, 'app/admin/preview.html', {'blogPage' : page})
         
     elif(page_id == 'delete'):
         pageId = request.POST.get('pageID', 'INVALID')

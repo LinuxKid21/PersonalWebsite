@@ -38,7 +38,11 @@ body {
     /*background-color: #555;*/
 }
 ol, ul {
-	list-style: none;
+    list-style-position: inside;
+}
+
+li:before {
+	content:"\2002";
 }
 blockquote, q {
 	quotes: none;
@@ -53,7 +57,7 @@ table {
 	border-spacing: 0;
 }
 
-p {
+p, ol, ul {
 	font-size: 1em;
 	line-height: 1.2em;
 	margin-bottom: 1em;
