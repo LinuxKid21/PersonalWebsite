@@ -158,8 +158,8 @@ def myAdmin(request, page_id):
         page.imageFile = image
         page.tag = tag
         page.published = (status == 'Published')
-        # summary is first 500 words of content with all paragrap tags, headers(and their content), django templates, and images removed. More to come...
-        page.summary = re.sub(r'(?:<p[\s\S]*?>|</p>|<h1>[\s\S]*?</h1>|<h2>[\s\S]*?</h2>|<h3>[\s\S]*?</h3>|<img[\s\S]*?/>|{%[\s\S]*?%})', '', content[0:1000])[0:500] + '...'
+        # summary is first 500 words of content with all paragrap tags, video tags, headers(and their content), django templates, and images removed. More to come...
+        page.summary = re.sub(r'(?:<p[\s\S]*?>|</p>|<video[\s\S]*?>[\s\S]*?</video>|<h1[\s\S]*?>[\s\S]*?</h1>|<h2[\s\S]*?>[\s\S]*?</h2>|<h3[\s\S]*?>[\s\S]*?</h3>|<img[\s\S]*?/>|{%[\s\S]*?%})', '', content[0:1000])[0:500] + '...'
         page.save()
         
         
